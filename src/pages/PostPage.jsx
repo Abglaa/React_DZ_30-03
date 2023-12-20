@@ -1,36 +1,33 @@
-import axios from "axios"; 
+// PostListPage.js
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const PostPage = ( setPostData ) => {
+const PostPage = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('https://dummyjson.com/posts?limit=3');
-        setPosts(response.data.posts);
-        console.log(response.data);
-        if (setPostData) {
-          setPostData(response.data);
-        }
+        const response = await axios.get('https://dummyjson.com/posts');
+        setPosts(response.data);
       } catch (error) {
-        console.error('Ошибка при получении постов:', error);
+        console.error('Error fetching posts:', error);
       }
     };
 
     fetchPosts();
-  }, [setPostData]);
+  }, []);
 
   return (
     <div>
-      <h1>Список постов</h1>
+      <h1>Post List</h1>
       <ul>
-        {posts.map(post => (
-          <li key={post.id}>
-            {post.title}
-          </li>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
         ))}
       </ul>
+      <Link to="/create-post">Create Post</Link>
     </div>
   );
 };

@@ -8,12 +8,6 @@ const NavBar = () => {
     <nav>
         <ul>
             <li>
-                <NavLink className={activeMenu} to="/">Home</NavLink>
-            </li>
-            <li>
-                <NavLink className={activeMenu} to="/about">About us</NavLink>
-            </li>
-            <li>
                 <NavLink className={activeMenu} to="/posts">Posts</NavLink>
             </li>
             <li>
