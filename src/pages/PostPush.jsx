@@ -1,89 +1,42 @@
-// CreatePostPage.js
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const PostPush = () => {
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const [postData, setPostData] = useState({ title: "", body: "" });
   const navigate = useNavigate();
 
-  const handleCreatePost = async () => {
+  const handleInputChange = (e) => {
+    setPostData({ ...postData, [e.target.name]: e.target.value });
+  };
+
+  const handlePostRequest = async () => {
     try {
-      const response = await axios.post('https://dummyjson.com/posts', {
-        title,
-        body,
-      });
-
-      console.log('Post created successfully:', response.data);
-
-      // Перенаправление на страницу списка постов
+      const response = await axios.post('https://dummyjson.com/posts', postData);
+      console.log('Ответ на POST-запрос:', response.data);
       navigate('/posts');
     } catch (error) {
-      console.error('Error creating post:', error);
+      console.error('Ошибка при выполнении POST-запроса:', error);
     }
   };
 
-  return (
+  console.log(postData);
+  
+  return (  
     <div>
       <h1>Create Post</h1>
-      <form>
-        <label>Title:</label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <br />
-        <label>Body:</label>
-        <textarea value={body} onChange={(e) => setBody(e.target.value)} />
-        <br />
-        <button type="button" onClick={handleCreatePost}>
-          Create Post
-        </button>
-      </form>
+      <label>Title: </label>
+      <input type="text" name="title" value={postData.title} onChange={handleInputChange} />
+      <br />
+      <label>Body: </label>
+      <textarea name="body" value={postData.body} onChange={handleInputChange} />
+      <br />
+      <button onClick={handlePostRequest}>Create Post</button>
     </div>
   );
 };
 
 export default PostPush;
-
-
-
-// import { useState } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-
-// const PostPush = () => {
-//   const [postData, setPostData] = useState({ title: "", body: "" });
-//   const navigate = useNavigate();
-
-//   const handleInputChange = (e) => {
-//     setPostData({ ...postData, [e.target.name]: e.target.value });
-//   };
-
-//   const handlePostRequest = () => {
-//     try {
-//       const response =  axios.post('https://dummyjson.com/posts', postData);
-//       console.log('Ответ на POST-запрос:', response.postData);
-//       navigate('/posts');
-//     } catch (error) {
-//       console.error('Ошибка при выполнении POST-запроса:', error);
-//     }
-//   };
-
-  
-//   return (  
-//     <div>
-//       <h1>Create Post</h1>
-//       <label>Title: </label>
-//       <input type="text" name="title" value={postData.title} onChange={handleInputChange} />
-//       <br />
-//       <label>Body: </label>
-//       <textarea name="body" value={postData.body} onChange={handleInputChange} />
-//       <br />
-//       <button onClick={handlePostRequest}>Create Post</button>
-//     </div>
-//   );
-// };
-
-// export default PostPush;
 
 
 
