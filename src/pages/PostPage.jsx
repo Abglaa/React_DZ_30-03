@@ -27,7 +27,7 @@ const PostPage = () => {
           <li key={post.id}>{post.title}</li>
         ))}
       </ul>
-      <Link to="/create-post">Create Post</Link>
+      <Link to="/postPush">Create Post</Link>
     </div>
   );
 };

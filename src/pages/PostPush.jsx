@@ -12,7 +12,7 @@ const PostPush = () => {
 
   const handlePostRequest = async () => {
     try {
-      const response = await axios.post('https://dummyjson.com/posts', postData);
+      const response = await axios.post('https://dummyjson.com/posts/', postData);
       console.log('Ответ на POST-запрос:', response.data);
       navigate('/posts');
     } catch (error) {
@@ -22,7 +22,7 @@ const PostPush = () => {
 
   console.log(postData);
   
-  return (  
+  return (   
     <div>
       <h1>Create Post</h1>
       <label>Title: </label>
